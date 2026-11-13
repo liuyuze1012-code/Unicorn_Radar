@@ -121,14 +121,14 @@ function LessonsPage() {
             {uPos.map(({ u, x, y }, i) => {
               const on = selected === u.company.id;
               return (
-                <g key={u.company.id} className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground" onClick={() => setSelected(u.company.id)} role="button" aria-label={`${u.company.name} story`} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setSelected(u.company.id)}>
+                <g key={u.company.id} className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-foreground" onClick={() => setSelected(u.company.id)} role="button" aria-label={`${u.company.name} story`} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setSelected(u.company.id)}>
                   <circle cx={x} cy={y} r={on ? 26 : 20} className={`fill-outcome-unicorn transition-all ${on ? "stroke-foreground" : "stroke-background"}`} strokeWidth={3} />
                   <text x={x} y={y + 4} textAnchor="middle" className="fill-foreground text-[12px] font-semibold">{i + 1}</text>
                   <text x={x} y={y + (y < C ? -32 : 42)} textAnchor="middle" className="fill-foreground text-[14px] font-medium">{u.company.name}</text>
                 </g>
               );
             })}
-            <g className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground" onClick={() => setSelected("you")} role="button" aria-label="Your takeaways" tabIndex={0}>
+            <g className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-foreground" onClick={() => setSelected("you")} role="button" aria-label="Your takeaways" tabIndex={0}>
               <circle cx={C} cy={C} r={selected === "you" ? 34 : 30} className="fill-foreground transition-all" />
               <text x={C} y={C + 4} textAnchor="middle" className="fill-background text-[12px] font-semibold">YOU</text>
               <text x={C} y={C + 54} textAnchor="middle" className="fill-foreground text-[14px] font-semibold">{focus.name}</text>
