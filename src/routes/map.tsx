@@ -156,7 +156,7 @@ function MapPage() {
             <h1 className="text-2xl">Comparables Map</h1>
             <p className="text-sm text-muted-foreground">
               {focus ? <>Showing <strong className="text-foreground">{focus.name}</strong> among {all.length.toLocaleString()} historical U.S. Series A companies.</> : <>{all.length.toLocaleString()} historical U.S. Series A companies, 2005–2013. Click any dot to explore it.</>}
-              {focus && <> <Link to="/map" search={{}} className="underline">Clear</Link></>}
+              {focus && <> <Link to="/map" search={{}} className="underline">Clear</Link> · <Link to="/lessons" search={search} className="font-medium text-foreground underline">See Unicorn Lessons →</Link></>}
             </p>
           </div>
           <div className="flex flex-wrap gap-1" role="tablist" aria-label="Axes">
