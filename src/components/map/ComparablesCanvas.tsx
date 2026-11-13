@@ -30,6 +30,8 @@ interface Props {
 const M = { l: 84, r: 20, t: 20, b: 60 };
 const STRIP = 14; // unknown strip thickness
 const ANIM_MS = 600;
+const COLOR_KEYS = ["foreground", "muted-foreground", "border", "background", "muted", "outcome-a", "outcome-b", "outcome-c", "outcome-unicorn", "outcome-unobserved"] as const;
+type ColorKey = (typeof COLOR_KEYS)[number];
 
 type Scale = ScaleContinuousNumeric<number, number>;
 
@@ -69,7 +71,7 @@ export const ComparablesCanvas = forwardRef<CanvasHandle, Props>(function Compar
     raf: 0,
     dirty: true,
     zoom: null as ZoomBehavior<HTMLCanvasElement, unknown> | null,
-    colors: {} as Record<string, string>,
+    colors: {} as Record<ColorKey, string>,
   });
 
   // Raw values and scales per preset (computed once per focus change).
@@ -114,7 +116,7 @@ export const ComparablesCanvas = forwardRef<CanvasHandle, Props>(function Compar
       const s = st.current;
       const d = dataRef.current!;
       const p = s.toPreset;
-      const xv = d.xs[p]![id], yv = d.ys[p]![id];
+      const xv = d.xs[p]![id] ?? null, yv = d.ys[p]![id] ?? null;
       const { x0, x1, y0, y1 } = plotBox();
       const bx = xv === null ? x0 - STRIP / 2 : d.sx[p]!.copy().range([x0, x1])(xv);
       const by = yv === null ? y1 + STRIP / 2 : d.sy[p]!.copy().range([y1, y0])(yv);
@@ -150,7 +152,7 @@ export const ComparablesCanvas = forwardRef<CanvasHandle, Props>(function Compar
     const wrap = wrapRef.current!;
     const s = st.current;
     const css = getComputedStyle(document.documentElement);
-    for (const k of ["foreground", "muted-foreground", "border", "background", "muted", "outcome-a", "outcome-b", "outcome-c", "outcome-unicorn", "outcome-unobserved"])
+    for (const k of COLOR_KEYS)
       s.colors[k] = css.getPropertyValue(`--${k}`).trim() || "#888";
 
     const resize = () => {

@@ -14,16 +14,16 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export interface MapSearch {
-  id?: number;
-  name?: string;
-  cat?: Category;
-  a?: number;
-  pe?: number;
-  pr?: number;
-  m?: number;
-  age?: number;
-  inv?: number;
-  st?: string;
+  id?: number | undefined;
+  name?: string | undefined;
+  cat?: Category | undefined;
+  a?: number | undefined;
+  pe?: number | undefined;
+  pr?: number | undefined;
+  m?: number | undefined;
+  age?: number | undefined;
+  inv?: number | undefined;
+  st?: string | undefined;
 }
 
 const num = (v: unknown) => (v === undefined || v === null || v === "" || !Number.isFinite(Number(v)) ? undefined : Number(v));
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/map")({
     name: typeof s.name === "string" ? s.name : undefined,
     cat: CATEGORIES.includes(s.cat as Category) ? (s.cat as Category) : undefined,
     a: num(s.a), pe: num(s.pe), pr: num(s.pr), m: num(s.m), age: num(s.age), inv: num(s.inv),
-    st: typeof s.st === "string" ? s.st : undefined,
+    st: typeof s['st'] === "string" ? s['st'] : undefined,
   }),
   head: () => ({
     meta: [
@@ -81,7 +81,7 @@ function MapPage() {
     return null;
   }, [search, all]);
 
-  const neighbors = useMemo(() => (focus ? findNeighbors(focus.input, { k: 25, sameCategory: true, excludeId: focus.excludeId }) : []), [focus]);
+  const neighbors = useMemo(() => (focus ? findNeighbors(focus.input, { k: 25, sameCategory: true, ...(focus.excludeId !== undefined ? { excludeId: focus.excludeId } : {}) }) : []), [focus]);
   const summary = useMemo(() => summarize(neighbors), [neighbors]);
   const neighborIds = useMemo(() => new Set(neighbors.map((n) => n.company.id)), [neighbors]);
 
