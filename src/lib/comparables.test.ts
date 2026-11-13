@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findNeighbors, getHistoricalCompanies, summarize } from "./comparables";
+import { compareTraits, findNearestUnicorns, findNeighbors, getHistoricalCompanies, summarize } from "./comparables";
 import { scoreCompany } from "./scoring";
 
 describe("historical companies", () => {
@@ -45,5 +45,36 @@ describe("findNeighbors", () => {
 
   it("is deterministic", () => {
     expect(findNeighbors(airbnb).map((n) => n.company.id)).toEqual(findNeighbors(airbnb).map((n) => n.company.id));
+  });
+});
+
+describe("findNearestUnicorns", () => {
+  const all = getHistoricalCompanies();
+  const lyft = all.find((c) => c.name === "Lyft")!;
+
+  it("returns unicorns only, nearest first, split by category, with honest crowd counts", () => {
+    const { sameCategory, otherCategories } = findNearestUnicorns(lyft, { k: 6, excludeId: lyft.id });
+    expect(sameCategory).toHaveLength(6);
+    expect(sameCategory.every((x) => x.company.category === lyft.category)).toBe(true);
+    expect(otherCategories.every((x) => x.company.category !== lyft.category)).toBe(true);
+    for (const list of [sameCategory, otherCategories]) {
+      expect(list.every((x) => x.company.unicorn === "within_5y" || x.company.unicorn === "later")).toBe(true);
+      expect(list.map((x) => x.rank)).toEqual([...list.map((x) => x.rank)].sort((a, b) => a - b));
+      expect(list.every((x) => x.profile !== null && x.crowd.companies === x.rank && x.crowd.unicorns <= x.rank)).toBe(true);
+    }
+    expect(sameCategory.map((x) => x.crowd.unicorns)).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  it("a unicorn's own inputs rank itself first", () => {
+    const top = findNearestUnicorns(lyft, { k: 1 }).sameCategory[0]!;
+    expect(top.company.name).toBe("Lyft");
+    expect(top.rank).toBe(1);
+    expect(top.band).toBe("Closest 1%");
+  });
+
+  it("compareTraits gives 7 plain-language rows", () => {
+    const rows = compareTraits(lyft, all.find((c) => c.name === "Uber")!);
+    expect(rows).toHaveLength(7);
+    expect(rows[0]!.yours).toMatch(/^\$|Unknown/);
   });
 });
