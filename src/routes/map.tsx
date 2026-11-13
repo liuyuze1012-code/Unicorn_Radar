@@ -29,12 +29,12 @@ export interface MapSearch {
 const num = (v: unknown) => (v === undefined || v === null || v === "" || !Number.isFinite(Number(v)) ? undefined : Number(v));
 
 export const Route = createFileRoute("/map")({
-  validateSearch: (s: Record<string, unknown>): MapSearch => ({
+  validateSearch: (s: { [K in keyof MapSearch]?: unknown }): MapSearch => ({
     id: num(s.id),
     name: typeof s.name === "string" ? s.name : undefined,
     cat: CATEGORIES.includes(s.cat as Category) ? (s.cat as Category) : undefined,
     a: num(s.a), pe: num(s.pe), pr: num(s.pr), m: num(s.m), age: num(s.age), inv: num(s.inv),
-    st: typeof s['st'] === "string" ? s['st'] : undefined,
+    st: typeof s.st === "string" ? s.st : undefined,
   }),
   head: () => ({
     meta: [
