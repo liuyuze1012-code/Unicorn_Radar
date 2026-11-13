@@ -175,3 +175,11 @@
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
+
+@keyframes radar-drift { from { transform: translate(0, 0); } to { transform: translate(-30px, -18px); } }
+@keyframes radar-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.9; } }
+@keyframes radar-sweep { to { transform: rotate(360deg); } }
+.radar-drift { animation: radar-drift 40s ease-in-out infinite alternate; }
+.radar-pulse { animation: radar-pulse 3.5s ease-in-out infinite; }
+.radar-sweep { animation: radar-sweep 6s linear infinite; transform-origin: 50% 50%; transform-box: view-box; }
+@media (prefers-reduced-motion: reduce) { .radar-drift, .radar-pulse, .radar-sweep { animation: none; } }
