@@ -5,6 +5,7 @@ import { CATEGORIES, scoreCompany, type Category, type CompanyInput } from "@/li
 import { formatUsd, outcomeOf, OUTCOME_LABEL, OUTCOMES, PRESETS, type Outcome } from "@/lib/mapModel";
 import { ComparablesCanvas, type CanvasHandle, type FocusPoint } from "@/components/map/ComparablesCanvas";
 import { CompanyDetailPanel, Legend, NeighborSummaryPanel, OUTCOME_BG } from "@/components/map/panels";
+import { StepNav } from "@/components/StepNav";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -151,12 +152,18 @@ function MapPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <div className="border-b px-4 py-3">
+        {focus && (
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+            <StepNav current={2} search={search} />
+            <Button asChild size="sm"><Link to="/lessons" search={search}>Step 3: Zoom in on the closest unicorns →</Link></Button>
+          </div>
+        )}
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 className="text-2xl">Comparables Map</h1>
             <p className="text-sm text-muted-foreground">
               {focus ? <>Showing <strong className="text-foreground">{focus.name}</strong> among {all.length.toLocaleString()} historical U.S. Series A companies.</> : <>{all.length.toLocaleString()} historical U.S. Series A companies, 2005–2013. Click any dot to explore it.</>}
-              {focus && <> <Link to="/map" search={{}} className="underline">Clear</Link> · <Link to="/lessons" search={search} className="font-medium text-foreground underline">See Unicorn Lessons →</Link></>}
+              {focus && <> <Link to="/map" search={{}} className="underline">Clear</Link></>}
             </p>
           </div>
           <div className="flex flex-wrap gap-1" role="tablist" aria-label="Axes">

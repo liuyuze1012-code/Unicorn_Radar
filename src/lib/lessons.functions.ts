@@ -4,7 +4,7 @@ import { formatUsd, stageLabel } from "./mapModel";
 import type { CompanyInput } from "./scoring";
 
 export const writeUnicornStories = createServerFn({ method: "POST" })
-  .inputValidator((d: { name: string; input: CompanyInput; ids: number[] }) => {
+  .validator((d: { name: string; input: CompanyInput; ids: number[] }) => {
     if (!Array.isArray(d.ids) || d.ids.length > 5) throw new Error("Up to 5 companies");
     return d;
   })
