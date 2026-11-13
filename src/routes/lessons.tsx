@@ -15,7 +15,7 @@ type LessonsSearch = CompanySearch & { id?: number | undefined };
 export const Route = createFileRoute("/lessons")({
   validateSearch: (s: Record<string, unknown>): LessonsSearch => ({
     ...parseCompanySearch(s),
-    id: s.id !== undefined && Number.isFinite(Number(s.id)) ? Number(s.id) : undefined,
+    id: s["id"] !== undefined && Number.isFinite(Number(s["id"])) ? Number(s["id"]) : undefined,
   }),
   head: () => ({
     meta: [
