@@ -32,4 +32,3 @@ use the editor.
 ## Project rules
 - Comparables Map draws all dots on one canvas (src/components/map/ComparablesCanvas.tsx) with d3-zoom; similarity always comes from findNeighbors, never 2D position — keeps 5.8k dots smooth and comparables honest.
 - Map outcome/axis rules live in src/lib/mapModel.ts (tested in mapModel.test.ts) — keeps UI free of scoring logic.
-- Unicorn Atlas (/atlas, the home page) is the plain-language view; its copy and pin-distance rules live in src/lib/atlas.ts (tested) and pin distance comes only from findNearestUnicorns rank — keeps the simple view honest.
