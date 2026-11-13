@@ -271,6 +271,19 @@ export function scoreCompany(input: CompanyInput): Scorecard {
   };
 }
 
+/**
+ * Standardized feature vector used for similarity (comparables), on the 3-year stage
+ * model's scale. Category flags are excluded: comparables are filtered by category instead.
+ */
+export function similarityVector(input: CompanyInput): number[] {
+  const x = transform(rawFeatures(input), STAGE_3Y.prep);
+  return STAGE_3Y.prep.columns.flatMap((col, i) => (col.startsWith("cat_") ? [] : [x[i] ?? 0]));
+}
+
+export const SIMILARITY_FEATURES = STAGE_3Y.prep.columns
+  .filter((c) => !c.startsWith("cat_"))
+  .map((c) => LABELS[c] ?? c);
+
 // ---------- helpers for the UI ----------
 
 /** Whole months between two dates (as the model expects: days / 30.44). Returns null if either is missing. */
