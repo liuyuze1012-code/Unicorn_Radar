@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { saveCompany } from "@/lib/savedCompanies";
 import { parseCompanySearch, toCompanyInput, type CompanySearch } from "@/lib/companyParams";
 import { scoreCompany, type Driver, type StageForecast } from "@/lib/scoring";
 import { StepNav } from "@/components/StepNav";
@@ -25,6 +26,7 @@ const pct = (v: number) => `${(v * 100).toFixed(v < 0.1 ? 1 : 0)}%`;
 
 function ScorecardPage() {
   const s = Route.useSearch();
+  useEffect(() => { if (s.cat) void saveCompany(s.name || "Your company", s); }, [s]);
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
