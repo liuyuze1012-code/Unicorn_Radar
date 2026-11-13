@@ -6,6 +6,7 @@ import { findNeighbors, getHistoricalCompanies, type HistoricalCompany } from "@
 import { parseCompanySearch, toCompanyInput, type CompanySearch } from "@/lib/companyParams";
 import { closestUnicorns, takeaways } from "@/lib/lessons";
 import { writeUnicornStories } from "@/lib/lessons.functions";
+import { getSaved, saveCompany } from "@/lib/savedCompanies";
 import { formatUsd, outcomeOf, stageLabel, type Outcome } from "@/lib/mapModel";
 import type { CompanyInput } from "@/lib/scoring";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -69,7 +70,13 @@ function LessonsPage() {
     enabled: !!focus && unicorns.length > 0,
     staleTime: Infinity,
     retry: false,
-    queryFn: () => write({ data: { name: focus!.name, input: focus!.input, ids: unicorns.map((u) => u.company.id) } }),
+    queryFn: async (): Promise<{ text: string } | { error: string }> => {
+      const saved = await getSaved(search).catch(() => null);
+      if (saved?.stories) return { text: saved.stories };
+      const res = await write({ data: { name: focus!.name, input: focus!.input, ids: unicorns.map((u) => u.company.id) } });
+      await saveCompany(focus!.name, search, "text" in res ? res.text : undefined);
+      return res;
+    },
   });
   const secs = stories.data && "text" in stories.data ? sections(stories.data.text) : [];
   const storyError = stories.isError ? "Couldn't write the stories right now. Please try again later." : stories.data && "error" in stories.data ? stories.data.error : null;

@@ -35,3 +35,4 @@ use the editor.
 
 - Company inputs travel between /scorecard, /scorecard/new and /map as URL search params, parsed in src/lib/companyParams.ts — keeps results shareable and the map entry unchanged.
 - Unicorn Lessons (/lessons) is step 3 after /map: closest unicorns come from lessons.ts (closestUnicorns), AI stories only for those 5 via lessons.functions.ts — keeps AI cost bounded.
+- Saved companies (/saved) are a shared no-login team list in the saved_companies table, keyed by savedKey(search); Lessons reuses saved stories before calling AI — avoids paying for the same stories twice.

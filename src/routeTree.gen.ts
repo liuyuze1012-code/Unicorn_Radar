@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as SavedRouteImport } from './routes/saved'
 import { Route as ScorecardIndexRouteImport } from './routes/scorecard.index'
 import { Route as ScorecardNewRouteImport } from './routes/scorecard.new'
 
@@ -30,6 +31,11 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScorecardIndexRoute = ScorecardIndexRouteImport.update({
   id: '/scorecard/',
   path: '/scorecard/',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/lessons': typeof LessonsRoute
   '/map': typeof MapRoute
+  '/saved': typeof SavedRoute
   '/scorecard/new': typeof ScorecardNewRoute
   '/scorecard/': typeof ScorecardIndexRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/lessons': typeof LessonsRoute
   '/map': typeof MapRoute
+  '/saved': typeof SavedRoute
   '/scorecard/new': typeof ScorecardNewRoute
   '/scorecard': typeof ScorecardIndexRoute
 }
@@ -60,21 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/lessons': typeof LessonsRoute
   '/map': typeof MapRoute
+  '/saved': typeof SavedRoute
   '/scorecard/new': typeof ScorecardNewRoute
   '/scorecard/': typeof ScorecardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/lessons' | '/map' | '/scorecard/new' | '/scorecard/'
+  fullPaths:
+    '/' | '/lessons' | '/map' | '/saved' | '/scorecard/new' | '/scorecard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/lessons' | '/map' | '/scorecard/new' | '/scorecard'
-  id: '__root__' | '/' | '/lessons' | '/map' | '/scorecard/new' | '/scorecard/'
+  to: '/' | '/lessons' | '/map' | '/saved' | '/scorecard/new' | '/scorecard'
+  id:
+    | '__root__'
+    | '/'
+    | '/lessons'
+    | '/map'
+    | '/saved'
+    | '/scorecard/new'
+    | '/scorecard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LessonsRoute: typeof LessonsRoute
   MapRoute: typeof MapRoute
+  SavedRoute: typeof SavedRoute
   ScorecardNewRoute: typeof ScorecardNewRoute
   ScorecardIndexRoute: typeof ScorecardIndexRoute
 }
@@ -102,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scorecard/': {
       id: '/scorecard/'
       path: '/scorecard'
@@ -123,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LessonsRoute: LessonsRoute,
   MapRoute: MapRoute,
+  SavedRoute: SavedRoute,
   ScorecardNewRoute: ScorecardNewRoute,
   ScorecardIndexRoute: ScorecardIndexRoute,
 }

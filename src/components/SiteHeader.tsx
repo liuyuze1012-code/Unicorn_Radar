@@ -11,6 +11,7 @@ export function SiteHeader() {
         <Link to="/scorecard" search={{}} activeProps={active}>Scorecard</Link>
         <Link to="/map" search={{}} activeProps={active}>Comparables Map</Link>
         <Link to="/lessons" search={{}} activeProps={active}>Unicorn Lessons</Link>
+        <Link to="/saved" activeProps={active}>Saved</Link>
       </nav>
     </header>
   );
