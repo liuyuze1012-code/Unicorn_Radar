@@ -113,7 +113,7 @@ function LessonsPage() {
         <p className="text-sm text-muted-foreground">Zoomed in on the 5 historical unicorns most like you. Closer to the centre means more similar at Series A. Click a unicorn to read its story.</p>
       </div>
       <div className="flex flex-1 flex-col lg:flex-row">
-        <div className="relative flex flex-1 items-center justify-center p-4">
+        <div className="relative flex flex-1 items-start justify-center p-4">
           <svg viewBox={`0 0 ${S} ${S}`} className="w-full max-w-[640px] animate-in fade-in zoom-in-50 duration-700" role="img" aria-label="Your company and the 5 closest unicorns">
             {[90, 160, 230].map((rr) => <circle key={rr} cx={C} cy={C} r={rr} className="fill-none stroke-border" strokeDasharray="3 5" />)}
             {ctxPos.map(({ n, x, y }) => <circle key={n.company.id} cx={x} cy={y} r={4} className={`${FILL[outcomeOf(n.company)]} opacity-40`}><title>{n.company.name}</title></circle>)}
