@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { parseCompanySearch, toCompanyInput, type CompanySearch } from "@/lib/companyParams";
 import { scoreCompany, type Driver, type StageForecast } from "@/lib/scoring";
+import { StepNav } from "@/components/StepNav";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 
@@ -86,13 +87,14 @@ function Result({ s }: { s: CompanySearch & { cat: NonNullable<CompanySearch["ca
   const u = sc.unicorn;
   return (
     <div className="space-y-6">
+      <StepNav current={1} search={mapSearch} />
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm text-muted-foreground">{s.cat}{s.st ? ` · ${s.st}` : ""}</p>
           <h1 className="text-4xl sm:text-5xl">{name}</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button asChild size="lg"><Link to="/map" search={mapSearch}>Open on Comparables Map →</Link></Button>
+          <Button asChild size="lg"><Link to="/map" search={mapSearch}>Step 2: Open on Comparables Map →</Link></Button>
           <Button asChild size="lg" variant="outline"><Link to="/scorecard/new" search={s}>Edit information</Link></Button>
         </div>
       </div>

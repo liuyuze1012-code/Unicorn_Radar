@@ -1,0 +1,2 @@
+- [x] Unicorn Lessons page: numbers comparison vs similar unicorns + AI stories for the 5 closest unicorns
+- [x] Lessons as zoomed-in radial map (company center, 5 unicorns around, click for story); step 3 after map

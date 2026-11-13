@@ -34,3 +34,4 @@ use the editor.
 - Map outcome/axis rules live in src/lib/mapModel.ts (tested in mapModel.test.ts) — keeps UI free of scoring logic.
 
 - Company inputs travel between /scorecard, /scorecard/new and /map as URL search params, parsed in src/lib/companyParams.ts — keeps results shareable and the map entry unchanged.
+- Unicorn Lessons (/lessons) is step 3 after /map: closest unicorns come from lessons.ts (closestUnicorns), AI stories only for those 5 via lessons.functions.ts — keeps AI cost bounded.

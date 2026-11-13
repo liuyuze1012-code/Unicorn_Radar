@@ -10,6 +10,7 @@ export function SiteHeader() {
       <nav className="flex gap-5 text-sm text-muted-foreground">
         <Link to="/scorecard" search={{}} activeProps={active}>Scorecard</Link>
         <Link to="/map" search={{}} activeProps={active}>Comparables Map</Link>
+        <Link to="/lessons" search={{}} activeProps={active}>Unicorn Lessons</Link>
       </nav>
     </header>
   );
