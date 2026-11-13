@@ -1,12 +1,15 @@
 import { Link } from "@tanstack/react-router";
+import { Logo } from "@/components/brand/Logo";
+
+const active = { className: "font-medium text-foreground underline underline-offset-4" };
 
 export function SiteHeader() {
   return (
-    <header className="flex items-center justify-between border-b px-4 py-3">
-      <Link to="/" className="font-serif text-lg font-semibold">Unicorn Radar</Link>
-      <nav className="flex gap-4 text-sm">
-        <Link to="/" activeOptions={{ exact: true }} activeProps={{ className: "font-medium underline underline-offset-4" }}>Scorecard</Link>
-        <Link to="/map" search={{}} activeProps={{ className: "font-medium underline underline-offset-4" }}>Comparables Map</Link>
+    <header className="relative z-10 flex flex-wrap items-center justify-between gap-2 border-b bg-background/80 px-5 py-3 backdrop-blur">
+      <Link to="/" className="flex items-center gap-2 font-serif text-lg font-semibold"><Logo size={26} />Unicorn Radar</Link>
+      <nav className="flex gap-5 text-sm text-muted-foreground">
+        <Link to="/scorecard" search={{}} activeProps={active}>Scorecard</Link>
+        <Link to="/map" search={{}} activeProps={active}>Comparables Map</Link>
       </nav>
     </header>
   );

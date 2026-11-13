@@ -32,3 +32,5 @@ use the editor.
 ## Project rules
 - Comparables Map draws all dots on one canvas (src/components/map/ComparablesCanvas.tsx) with d3-zoom; similarity always comes from findNeighbors, never 2D position — keeps 5.8k dots smooth and comparables honest.
 - Map outcome/axis rules live in src/lib/mapModel.ts (tested in mapModel.test.ts) — keeps UI free of scoring logic.
+
+- Company inputs travel between /scorecard, /scorecard/new and /map as URL search params, parsed in src/lib/companyParams.ts — keeps results shareable and the map entry unchanged.

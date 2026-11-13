@@ -1,99 +1,120 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { CATEGORIES, scoreCompany, type Category, type CompanyInput } from "@/lib/scoring";
+import { useMemo } from "react";
+import { BarChart3, FileText, Radar } from "lucide-react";
+import { Logo } from "@/components/brand/Logo";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ModelExplainer } from "@/components/ModelExplainer";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Unicorn Radar · Series A Scorecard" },
-      { name: "description", content: "Score a Series A company against 5,819 historical U.S. companies: odds of Series B, C and a $1B round." },
-      { property: "og:title", content: "Unicorn Radar · Series A Scorecard" },
-      { property: "og:description", content: "Score a Series A company against 5,819 historical U.S. companies." },
+      { title: "Unicorn Radar · How does a Series A company stack up?" },
+      { name: "description", content: "See how a Series A company stacks up against 5,819 real startups, and which ones raised their next rounds or became unicorns." },
+      { property: "og:title", content: "Unicorn Radar" },
+      { property: "og:description", content: "Compare a Series A company against 5,819 real startups and their actual outcomes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: Index,
+  component: Home,
 });
 
-type Form = { name: string; cat: Category; a: string; pe: string; pr: string; m: string; age: string; inv: string; st: string };
-const toNum = (s: string, mult = 1) => (s.trim() === "" || !Number.isFinite(Number(s)) ? null : Number(s) * mult);
-const pct = (v: number) => `${(v * 100).toFixed(v < 0.1 ? 1 : 0)}%`;
-
-function Index() {
-  const [f, setF] = useState<Form>({ name: "Your company", cat: "B2B software", a: "5", pe: "1", pr: "1", m: "12", age: "24", inv: "3", st: "CA" });
-  const input: CompanyInput = useMemo(() => ({
-    category: f.cat,
-    seriesAAmountUsd: toNum(f.a, 1e6),
-    priorEquityUsd: toNum(f.pe, 1e6),
-    priorRounds: toNum(f.pr),
-    monthsFirstFundingToA: toNum(f.m),
-    ageMonthsAtA: toNum(f.age),
-    seriesAInvestorCount: toNum(f.inv),
-    hqState: f.st.trim() ? f.st.trim().toUpperCase() : null,
-  }), [f]);
-  const sc = useMemo(() => scoreCompany(input), [input]);
-  const set = (k: keyof Form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value });
-  const field = (k: keyof Form, label: string) => (
-    <label className="block text-sm">
-      <span className="text-muted-foreground">{label}</span>
-      <input value={f[k]} onChange={set(k)} className="num mt-1 h-9 w-full rounded-md border bg-card px-2" />
-    </label>
+function DotField() {
+  const dots = useMemo(() => {
+    let seed = 7;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    return Array.from({ length: 306 }, (_, i) => ({ x: rnd() * 1640 - 20, y: rnd() * 940 - 20, r: 1.2 + rnd() * 1.6, gold: i % 51 === 0, d: rnd() * 3 }));
+  }, []);
+  return (
+    <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden>
+      <g className="radar-drift">
+        {dots.map((d, i) =>
+          d.gold ? (
+            <circle key={i} cx={d.x} cy={d.y} r={4} className="fill-gold radar-pulse" style={{ animationDelay: `${d.d}s` }} />
+          ) : (
+            <circle key={i} cx={d.x} cy={d.y} r={d.r} className="fill-muted-foreground" opacity={0.18} />
+          ),
+        )}
+      </g>
+    </svg>
   );
-  const mapSearch = {
-    name: f.name, cat: f.cat,
-    a: input.seriesAAmountUsd ?? undefined, pe: input.priorEquityUsd ?? undefined, pr: input.priorRounds ?? undefined,
-    m: input.monthsFirstFundingToA ?? undefined, age: input.ageMonthsAtA ?? undefined, inv: input.seriesAInvestorCount ?? undefined,
-    st: input.hqState ?? undefined,
-  };
+}
 
+const STATS = [
+  { n: "5,819", t: "U.S. Series A companies, 2005–2013" },
+  { n: "50", t: "unicorns, each verified against news sources" },
+  { n: "8×", t: "more unicorns in the model's top 100 picks than random picks" },
+];
+
+const STEPS = [
+  { icon: FileText, title: "Enter the company", body: "Type in its Series A facts, or upload a pitch deck." },
+  { icon: BarChart3, title: "Get the forecast", body: "Odds of raising a Series B or C, and odds of a $1B round, compared with the historical average." },
+  { icon: Radar, title: "Find its look-alikes", body: "See the company on a map of 5,819 real startups and what happened to the ones most like it." },
+];
+
+function Home() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="mx-auto grid max-w-5xl gap-8 px-4 py-8 md:grid-cols-[320px_1fr]">
-        <section className="space-y-3">
-          <h1 className="text-2xl">Series A Scorecard</h1>
-          <p className="text-sm text-muted-foreground">Facts known at the company's first Series A. Leave a field blank if unknown.</p>
-          {field("name", "Company name")}
-          <label className="block text-sm">
-            <span className="text-muted-foreground">Category</span>
-            <select value={f.cat} onChange={set("cat")} className="mt-1 h-9 w-full rounded-md border bg-card px-2">
-              {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-            </select>
-          </label>
-          {field("a", "Series A size ($M)")}
-          {field("pe", "Equity raised before Series A ($M)")}
-          {field("pr", "Rounds before Series A")}
-          {field("m", "Months from first funding to Series A")}
-          {field("age", "Company age at Series A (months)")}
-          {field("inv", "Number of Series A investors")}
-          {field("st", "HQ state (e.g. CA)")}
-        </section>
-        <section className="space-y-6">
-          <div className="rounded-md border bg-card p-5">
-            <h2 className="text-lg">{f.name || "Your company"}</h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3">
-              <div><div className="text-xs text-muted-foreground">Raises Series B+ within 3 years</div><div className="num text-3xl">{pct(sc.stage3y.reachBOrLater)}</div><div className="num text-xs text-muted-foreground">base rate {pct(1 - sc.stage3y.baseRates.stayA)}</div></div>
-              <div><div className="text-xs text-muted-foreground">Reaches Series C+ within 5 years</div><div className="num text-3xl">{pct(sc.stage5y.reachC)}</div><div className="num text-xs text-muted-foreground">base rate {pct(sc.stage5y.baseRates.reachC)}</div></div>
-              <div><div className="text-xs text-muted-foreground">Unicorn score ($1B within 5y)</div><div className="num text-3xl">{pct(sc.unicorn.probability)}</div><div className="num text-xs text-muted-foreground">range {pct(sc.unicorn.range.low)}–{pct(sc.unicorn.range.high)} · {sc.unicorn.multipleOfBaseRate.toFixed(1)}× base</div></div>
+      <section className="relative flex min-h-[calc(100svh-57px)] items-center overflow-hidden px-6">
+        <DotField />
+        <div className="relative mx-auto w-full max-w-5xl py-20">
+          <Logo size={88} animated className="mb-8" />
+          <h1 className="text-6xl leading-[0.95] tracking-tight sm:text-8xl lg:text-[112px]">Unicorn Radar</h1>
+          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-muted-foreground sm:text-2xl">
+            See how a Series A company stacks up against 5,819 real startups — and which ones went on to raise their next rounds or become unicorns.
+          </p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="h-14 px-8 text-base"><Link to="/scorecard" search={{}}>Score a company →</Link></Button>
+            <Button asChild size="lg" variant="outline" className="h-14 bg-background px-8 text-base"><Link to="/map" search={{}}>Explore the map</Link></Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y bg-card">
+        <div className="mx-auto grid max-w-6xl divide-y sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {STATS.map((s) => (
+            <div key={s.n} className="px-8 py-12">
+              <div className="num text-6xl font-medium tracking-tight sm:text-7xl">{s.n}</div>
+              <p className="mt-3 max-w-xs text-muted-foreground">{s.t}</p>
             </div>
-            <p className="num mt-4 text-xs text-muted-foreground">
-              Higher than {sc.percentile.unicorn.toFixed(0)}% of {sc.percentile.cohortSize.toLocaleString()} historical {sc.percentile.category} companies · {sc.inputsProvided}/{sc.inputsTotal} inputs provided
-            </p>
-            <Button asChild className="mt-5"><Link to="/map" search={mapSearch}>Open on Comparables Map</Link></Button>
-          </div>
-          <div className="rounded-md border bg-card p-5">
-            <h3 className="mb-2 text-sm">What moves the unicorn score</h3>
-            <ul className="space-y-1 text-sm">
-              {sc.unicorn.drivers.slice(0, 6).map((d) => (
-                <li key={d.feature} className="flex justify-between gap-2"><span>{d.label}</span><span className="num">{d.contribution > 0 ? "+" : ""}{d.contribution.toFixed(2)}</span></li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      </main>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-28">
+        <h2 className="text-4xl sm:text-5xl">How it works</h2>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {STEPS.map((s, i) => (
+            <div key={s.title} className="rounded-2xl border bg-card p-8">
+              <s.icon className="size-8" strokeWidth={1.5} />
+              <div className="num mt-8 text-sm text-muted-foreground">0{i + 1}</div>
+              <h3 className="mt-1 text-2xl">{s.title}</h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-6 pb-28">
+        <h2 className="text-4xl sm:text-5xl">Built on real outcomes</h2>
+        <p className="mt-6 text-xl leading-relaxed text-muted-foreground">
+          Trained on real companies — including the ones that failed — and tested on later years the model never saw. We show uncertainty instead of hiding it.
+        </p>
+        <ModelExplainer />
+      </section>
+
+      <section className="bg-primary text-primary-foreground">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 py-20 sm:flex-row sm:items-center">
+          <h2 className="text-4xl sm:text-5xl">Score your first company</h2>
+          <Button asChild size="lg" variant="secondary" className="h-14 px-8 text-base"><Link to="/scorecard/new" search={{}}>Score your first company →</Link></Button>
+        </div>
+      </section>
+
+      <footer className="px-6 py-8 text-sm text-muted-foreground">
+        Data: Crunchbase 2013 snapshot (CC BY 4.0). Unicorn dates hand-verified from public reporting. Not investment advice.
+      </footer>
     </div>
   );
 }
