@@ -26,7 +26,7 @@ export const RINGS = [
 /** Distance of a pin from "You": grows with rank, and lands inside the right ring band. */
 export function pinRadius(rank: number, poolSize: number): number {
   const p = Math.min(100, (100 * rank) / Math.max(1, poolSize));
-  const stops: [number, number][] = [[0, 34], [1, 90], [5, 170], [15, 250], [100, 330]];
+  const stops: [number, number][] = [[0, 56], [1, 90], [5, 170], [15, 250], [100, 330]];
   for (let i = 1; i < stops.length; i++) {
     const [p0, r0] = stops[i - 1]!;
     const [p1, r1] = stops[i]!;

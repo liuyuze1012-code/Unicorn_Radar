@@ -37,9 +37,10 @@ interface Props {
   selectedId: number | null;
   onSelect: (id: number) => void;
   onHover: (id: number | null) => void;
+  slice?: boolean;
 }
 
-export const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap({ category, pins, highlightId, selectedId, onSelect, onHover }, ref) {
+export const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap({ category, pins, highlightId, selectedId, onSelect, onHover, slice = false }, ref) {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
   const zRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(null);
@@ -61,7 +62,7 @@ export const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap({ ca
   }));
 
   return (
-    <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="h-full w-full touch-none select-none bg-atlas-paper" role="img" aria-label="Map of the unicorns your company looked like">
+    <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio={slice ? "xMidYMid slice" : "xMidYMid meet"} className="h-full w-full touch-none select-none bg-atlas-paper" role="img" aria-label="Map of the unicorns your company looked like">
       <defs>
         <filter id="pin-shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" /></filter>
       </defs>
@@ -82,7 +83,7 @@ export const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap({ ca
             fill="none" className="stroke-atlas-land-edge" strokeDasharray="4 6" />
         ))}
         <text x={300} y={110} textAnchor="middle" className="fill-muted-foreground font-serif italic" fontSize={26}>{LAND_NAME[category]}</text>
-        <text x={1030} y={110} textAnchor="middle" className="fill-muted-foreground font-serif italic" fontSize={20}>Other industries</text>
+        <text x={1030} y={72} textAnchor="middle" className="fill-muted-foreground font-serif italic" fontSize={20}>Other industries</text>
         <text x={745} y={760} textAnchor="middle" className="fill-muted-foreground font-serif italic" fontSize={16}>The Strait</text>
 
         {/* rings */}
