@@ -111,9 +111,9 @@ function AtlasResult({ s }: { s: AtlasAnswers }) {
             </ol>
           </aside>
         )}
-        <div className="relative min-h-[72vh] flex-1 md:min-h-[520px]">
+        <div className="relative aspect-[3/2] flex-1 md:aspect-auto md:min-h-[520px]">
           <div className="absolute inset-0">
-            <AtlasMap ref={map} category={s.cat} pins={pins} highlightId={hover} selectedId={selected} onSelect={setSelected} onHover={setHover} slice={isMobile} />
+            <AtlasMap ref={map} category={s.cat} pins={pins} highlightId={hover} selectedId={selected} onSelect={setSelected} onHover={setHover} />
           </div>
           <div className="absolute right-3 top-3 flex flex-col gap-2">
             <Button size="icon" variant="outline" className="size-11 bg-card" aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Plus /></Button>
