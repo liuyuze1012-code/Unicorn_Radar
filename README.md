@@ -8,7 +8,7 @@ Unicorn Radar gives a VC analyst a second opinion in under a minute. Enter a com
 - its odds of a $1B private round, shown as a range against the historical average,
 - its position on a map of 5,819 real U.S. Series A companies from 2005–2013, including the thousands that never made it.
 
-🏆 **Winner (1st Place), GUX × Lovable Hackathon 2026 (Georgetown University).** Sister project: [**Founder Radar**](https://github.com/liuyuze1012-code/founder-radar-setup) finds promising founders *before* they raise. Unicorn Radar judges companies *once* they have raised.
+🏆 **Winner (1st Place), GUX × Lovable Hackathon 2026 (Georgetown University).** Sister project: [**Founder Radar**](https://github.com/liuyuze1012-code/Founder_Radar) finds promising founders *before* they raise. Unicorn Radar judges companies *once* they have raised.
 
 > Not investment advice. This is a research tool trained on public, historical data.
 
@@ -84,7 +84,7 @@ The top 20 test picks included Pinterest, Instacart, Wayfair and Formlabs.
 
 ## Roadmap: plug in a fund's own data
 The pipeline is designed to retrain on proprietary data. With a VC's deal-flow history, we would add:
-- founder background and team composition (and [Founder Radar](https://github.com/liuyuze1012-code/founder-radar-setup)'s signals),
+- founder background and team composition (and [Founder Radar](https://github.com/liuyuze1012-code/Founder_Radar)'s signals),
 - traction metrics: revenue growth, retention, hiring velocity (the signals least inflated by booms),
 - investor quality and syndicate history,
 - the fund's own pass/invest decisions, so the model learns *its* taste,
