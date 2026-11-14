@@ -1,0 +1,174 @@
+{
+  "train": {
+    "years": "2005-2010",
+    "n": 3073,
+    "positives": 24
+  },
+  "test": {
+    "years": "2011-2013",
+    "n": 2731,
+    "positives": 26,
+    "base_rate": 0.0095
+  },
+  "C": 0.1,
+  "model": {
+    "AUC": 0.8353,
+    "AUC_90CI": [
+      0.7727,
+      0.8922
+    ],
+    "AvgPrecision": 0.0699,
+    "top20_hits": 4,
+    "top50_hits": 5,
+    "top100_hits": 8,
+    "Brier": 0.0092,
+    "Brier_base": 0.0094
+  },
+  "roundsize_baseline": {
+    "AUC": 0.8203,
+    "AvgPrecision": 0.0717,
+    "top20_hits": 3,
+    "top50_hits": 3,
+    "top100_hits": 5
+  },
+  "AUC_gain_vs_roundsize_90CI": [
+    -0.057,
+    0.0809
+  ],
+  "expected_top100_hits_by_chance": 0.952,
+  "coefficients": {
+    "log_a_size": 0.601,
+    "log_prior_equity": 0.364,
+    "age_years": -0.121,
+    "log_investors": 0.462,
+    "hub_state": 0.178,
+    "cat_B2C software": 0.333,
+    "cat_Hardware": 0.162,
+    "cat_Other": -0.318,
+    "log_a_size_missing": -0.212,
+    "age_years_missing": 0.247,
+    "log_investors_missing": -0.043
+  },
+  "test_top20": [
+    {
+      "name": "Sprouts Farmers Markets",
+      "year": 2011,
+      "p": 0.1833,
+      "y": 0
+    },
+    {
+      "name": "Loop Commerce",
+      "year": 2013,
+      "p": 0.168,
+      "y": 0
+    },
+    {
+      "name": "MessageMe",
+      "year": 2013,
+      "p": 0.1381,
+      "y": 0
+    },
+    {
+      "name": "Oculus VR",
+      "year": 2013,
+      "p": 0.1345,
+      "y": 0
+    },
+    {
+      "name": "Airtime",
+      "year": 2012,
+      "p": 0.1339,
+      "y": 0
+    },
+    {
+      "name": "OUYA",
+      "year": 2013,
+      "p": 0.1326,
+      "y": 0
+    },
+    {
+      "name": "Zaarly",
+      "year": 2011,
+      "p": 0.1276,
+      "y": 0
+    },
+    {
+      "name": "Ark",
+      "year": 2012,
+      "p": 0.122,
+      "y": 0
+    },
+    {
+      "name": "Formlabs",
+      "year": 2013,
+      "p": 0.1205,
+      "y": 1
+    },
+    {
+      "name": "Birchbox",
+      "year": 2011,
+      "p": 0.1198,
+      "y": 0
+    },
+    {
+      "name": "Slice",
+      "year": 2011,
+      "p": 0.1123,
+      "y": 0
+    },
+    {
+      "name": "PandoDaily",
+      "year": 2013,
+      "p": 0.1105,
+      "y": 0
+    },
+    {
+      "name": "Pinterest",
+      "year": 2011,
+      "p": 0.1049,
+      "y": 1
+    },
+    {
+      "name": "SetPoint Medical",
+      "year": 2013,
+      "p": 0.1041,
+      "y": 0
+    },
+    {
+      "name": "Instacart",
+      "year": 2013,
+      "p": 0.1015,
+      "y": 1
+    },
+    {
+      "name": "Priceonomics",
+      "year": 2012,
+      "p": 0.0989,
+      "y": 0
+    },
+    {
+      "name": "CompStak",
+      "year": 2013,
+      "p": 0.0958,
+      "y": 0
+    },
+    {
+      "name": "ecomom",
+      "year": 2011,
+      "p": 0.0951,
+      "y": 0
+    },
+    {
+      "name": "Wayfair",
+      "year": 2011,
+      "p": 0.0941,
+      "y": 1
+    },
+    {
+      "name": "Life360",
+      "year": 2011,
+      "p": 0.0926,
+      "y": 0
+    }
+  ]
+}

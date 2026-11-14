@@ -1,0 +1,525 @@
+{
+  "primary_3y": {
+    "setup": "3-year horizon: train 2005-2008, test 2009-2010",
+    "horizon_years": 3,
+    "train_n": 2071,
+    "test_n": 985,
+    "train_years": "2005-2008",
+    "test_years": "2009-2010",
+    "test_outcomes": {
+      "stayed_A": 575,
+      "reached_B": 295,
+      "reached_C+": 115
+    },
+    "rps_base_rate": 0.1735,
+    "roundsize_baseline_>=B": {
+      "AUC": 0.5609,
+      "AvgPrecision": 0.4407,
+      "Top20%_hit_rate": 0.4619,
+      "Top20%_lift": 1.1098,
+      "Top20_hits": 5,
+      "base_rate": 0.4162
+    },
+    "roundsize_baseline_>=C": {
+      "AUC": 0.5927,
+      "AvgPrecision": 0.1427,
+      "Top20%_hit_rate": 0.1269,
+      "Top20%_lift": 1.087,
+      "Top20_hits": 2,
+      "base_rate": 0.1168
+    },
+    "models": {
+      "core4": {
+        "C": 0.3,
+        "rps": 0.1691,
+        "rps_skill_vs_base": 0.025,
+        ">=B": {
+          "AUC": 0.6227,
+          "AvgPrecision": 0.5079,
+          "Top20%_hit_rate": 0.5685,
+          "Top20%_lift": 1.3659,
+          "Top20_hits": 6,
+          "base_rate": 0.4162,
+          "Brier": 0.2363,
+          "Brier_base": 0.2436,
+          "AUC_gain_vs_roundsize_95CI": [
+            0.019,
+            0.106
+          ],
+          "AUC_95CI": [
+            0.588,
+            0.659
+          ]
+        },
+        ">=C": {
+          "AUC": 0.6211,
+          "AvgPrecision": 0.1684,
+          "Top20%_hit_rate": 0.203,
+          "Top20%_lift": 1.7391,
+          "Top20_hits": 2,
+          "base_rate": 0.1168,
+          "Brier": 0.1019,
+          "Brier_base": 0.1034,
+          "AUC_gain_vs_roundsize_95CI": [
+            -0.043,
+            0.099
+          ],
+          "AUC_95CI": [
+            0.564,
+            0.67
+          ]
+        },
+        "coefficients": {
+          ">=B": {
+            "log_a_size": 0.181,
+            "log_prior_equity": -0.008,
+            "months_to_a": -0.053,
+            "age_years": -0.37,
+            "log_a_size_missing": -0.101,
+            "age_years_missing": -0.351
+          },
+          ">=C": {
+            "log_a_size": 0.083,
+            "log_prior_equity": -0.0,
+            "months_to_a": 0.015,
+            "age_years": -0.432,
+            "log_a_size_missing": -0.145,
+            "age_years_missing": -0.384
+          }
+        },
+        "calibration_>=B": [
+          {
+            "predicted": 0.262,
+            "actual": 0.274,
+            "n": 197
+          },
+          {
+            "predicted": 0.392,
+            "actual": 0.335,
+            "n": 197
+          },
+          {
+            "predicted": 0.463,
+            "actual": 0.411,
+            "n": 197
+          },
+          {
+            "predicted": 0.508,
+            "actual": 0.492,
+            "n": 197
+          },
+          {
+            "predicted": 0.57,
+            "actual": 0.569,
+            "n": 197
+          }
+        ],
+        "per_category_AUC_>=B": {
+          "B2B software": {
+            "n": 413,
+            "AUC": 0.613
+          },
+          "B2C software": {
+            "n": 321,
+            "AUC": 0.648
+          },
+          "Hardware": {
+            "n": 41,
+            "AUC": 0.674
+          },
+          "Other": {
+            "n": 210,
+            "AUC": 0.593
+          }
+        }
+      },
+      "extended": {
+        "C": 1.0,
+        "rps": 0.1699,
+        "rps_skill_vs_base": 0.0204,
+        ">=B": {
+          "AUC": 0.6303,
+          "AvgPrecision": 0.5282,
+          "Top20%_hit_rate": 0.5888,
+          "Top20%_lift": 1.4146,
+          "Top20_hits": 12,
+          "base_rate": 0.4162,
+          "Brier": 0.237,
+          "Brier_base": 0.2436,
+          "AUC_gain_vs_roundsize_95CI": [
+            0.016,
+            0.115
+          ],
+          "AUC_95CI": [
+            0.593,
+            0.666
+          ]
+        },
+        ">=C": {
+          "AUC": 0.63,
+          "AvgPrecision": 0.1778,
+          "Top20%_hit_rate": 0.198,
+          "Top20%_lift": 1.6957,
+          "Top20_hits": 4,
+          "base_rate": 0.1168,
+          "Brier": 0.1029,
+          "Brier_base": 0.1034,
+          "AUC_gain_vs_roundsize_95CI": [
+            -0.033,
+            0.11
+          ],
+          "AUC_95CI": [
+            0.579,
+            0.682
+          ]
+        },
+        "coefficients": {
+          ">=B": {
+            "log_a_size": 0.112,
+            "log_prior_equity": -0.018,
+            "months_to_a": -0.062,
+            "age_years": -0.33,
+            "log_investors": 0.255,
+            "hub_state": 0.308,
+            "prior_rounds": -0.012,
+            "cat_B2C software": -0.13,
+            "cat_Hardware": -0.053,
+            "cat_Other": -0.192,
+            "log_a_size_missing": -0.099,
+            "age_years_missing": -0.298,
+            "log_investors_missing": -0.224
+          },
+          ">=C": {
+            "log_a_size": 0.025,
+            "log_prior_equity": -0.033,
+            "months_to_a": -0.0,
+            "age_years": -0.403,
+            "log_investors": 0.156,
+            "hub_state": 0.288,
+            "prior_rounds": 0.033,
+            "cat_B2C software": -0.159,
+            "cat_Hardware": -0.094,
+            "cat_Other": -0.142,
+            "log_a_size_missing": -0.144,
+            "age_years_missing": -0.34,
+            "log_investors_missing": -0.284
+          }
+        },
+        "calibration_>=B": [
+          {
+            "predicted": 0.189,
+            "actual": 0.279,
+            "n": 197
+          },
+          {
+            "predicted": 0.328,
+            "actual": 0.325,
+            "n": 197
+          },
+          {
+            "predicted": 0.443,
+            "actual": 0.437,
+            "n": 197
+          },
+          {
+            "predicted": 0.557,
+            "actual": 0.452,
+            "n": 197
+          },
+          {
+            "predicted": 0.691,
+            "actual": 0.589,
+            "n": 197
+          }
+        ],
+        "per_category_AUC_>=B": {
+          "B2B software": {
+            "n": 413,
+            "AUC": 0.631
+          },
+          "B2C software": {
+            "n": 321,
+            "AUC": 0.653
+          },
+          "Hardware": {
+            "n": 41,
+            "AUC": 0.608
+          },
+          "Other": {
+            "n": 210,
+            "AUC": 0.587
+          }
+        }
+      }
+    }
+  },
+  "secondary_5y": {
+    "setup": "5-year horizon: train 2005-2007, test 2008",
+    "horizon_years": 5,
+    "train_n": 1452,
+    "test_n": 605,
+    "train_years": "2005-2007",
+    "test_years": "2008-2008",
+    "test_outcomes": {
+      "stayed_A": 370,
+      "reached_B": 125,
+      "reached_C+": 110
+    },
+    "rps_base_rate": 0.2103,
+    "roundsize_baseline_>=B": {
+      "AUC": 0.5351,
+      "AvgPrecision": 0.4095,
+      "Top20%_hit_rate": 0.438,
+      "Top20%_lift": 1.1277,
+      "Top20_hits": 7,
+      "base_rate": 0.3884
+    },
+    "roundsize_baseline_>=C": {
+      "AUC": 0.5505,
+      "AvgPrecision": 0.2002,
+      "Top20%_hit_rate": 0.1983,
+      "Top20%_lift": 1.0909,
+      "Top20_hits": 3,
+      "base_rate": 0.1818
+    },
+    "models": {
+      "core4": {
+        "C": 0.1,
+        "rps": 0.1972,
+        "rps_skill_vs_base": 0.0623,
+        ">=B": {
+          "AUC": 0.6662,
+          "AvgPrecision": 0.5325,
+          "Top20%_hit_rate": 0.6033,
+          "Top20%_lift": 1.5532,
+          "Top20_hits": 12,
+          "base_rate": 0.3884,
+          "Brier": 0.2432,
+          "Brier_base": 0.2644,
+          "AUC_gain_vs_roundsize_95CI": [
+            0.084,
+            0.181
+          ],
+          "AUC_95CI": [
+            0.625,
+            0.71
+          ]
+        },
+        ">=C": {
+          "AUC": 0.6486,
+          "AvgPrecision": 0.2543,
+          "Top20%_hit_rate": 0.2562,
+          "Top20%_lift": 1.4091,
+          "Top20_hits": 3,
+          "base_rate": 0.1818,
+          "Brier": 0.1512,
+          "Brier_base": 0.1562,
+          "AUC_gain_vs_roundsize_95CI": [
+            0.026,
+            0.16
+          ],
+          "AUC_95CI": [
+            0.592,
+            0.703
+          ]
+        },
+        "coefficients": {
+          ">=B": {
+            "log_a_size": 0.237,
+            "log_prior_equity": 0.068,
+            "months_to_a": -0.065,
+            "age_years": -0.367,
+            "log_a_size_missing": -0.106,
+            "age_years_missing": -0.344
+          },
+          ">=C": {
+            "log_a_size": 0.149,
+            "log_prior_equity": 0.093,
+            "months_to_a": -0.001,
+            "age_years": -0.441,
+            "log_a_size_missing": -0.113,
+            "age_years_missing": -0.468
+          }
+        },
+        "calibration_>=B": [
+          {
+            "predicted": 0.347,
+            "actual": 0.198,
+            "n": 121
+          },
+          {
+            "predicted": 0.477,
+            "actual": 0.306,
+            "n": 121
+          },
+          {
+            "predicted": 0.568,
+            "actual": 0.38,
+            "n": 121
+          },
+          {
+            "predicted": 0.625,
+            "actual": 0.455,
+            "n": 121
+          },
+          {
+            "predicted": 0.693,
+            "actual": 0.603,
+            "n": 121
+          }
+        ],
+        "per_category_AUC_>=B": {
+          "B2B software": {
+            "n": 223,
+            "AUC": 0.665
+          },
+          "B2C software": {
+            "n": 232,
+            "AUC": 0.615
+          },
+          "Other": {
+            "n": 133,
+            "AUC": 0.721
+          }
+        }
+      },
+      "extended": {
+        "C": 0.03,
+        "rps": 0.1901,
+        "rps_skill_vs_base": 0.096,
+        ">=B": {
+          "AUC": 0.6827,
+          "AvgPrecision": 0.5555,
+          "Top20%_hit_rate": 0.5702,
+          "Top20%_lift": 1.4681,
+          "Top20_hits": 14,
+          "base_rate": 0.3884,
+          "Brier": 0.2339,
+          "Brier_base": 0.2644,
+          "AUC_gain_vs_roundsize_95CI": [
+            0.096,
+            0.2
+          ],
+          "AUC_95CI": [
+            0.643,
+            0.727
+          ]
+        },
+        ">=C": {
+          "AUC": 0.6901,
+          "AvgPrecision": 0.296,
+          "Top20%_hit_rate": 0.3719,
+          "Top20%_lift": 2.0455,
+          "Top20_hits": 5,
+          "base_rate": 0.1818,
+          "Brier": 0.1463,
+          "Brier_base": 0.1562,
+          "AUC_gain_vs_roundsize_95CI": [
+            0.063,
+            0.214
+          ],
+          "AUC_95CI": [
+            0.636,
+            0.741
+          ]
+        },
+        "coefficients": {
+          ">=B": {
+            "log_a_size": 0.15,
+            "log_prior_equity": 0.027,
+            "months_to_a": -0.07,
+            "age_years": -0.298,
+            "log_investors": 0.318,
+            "hub_state": 0.295,
+            "prior_rounds": 0.022,
+            "cat_B2C software": -0.14,
+            "cat_Hardware": -0.032,
+            "cat_Other": -0.127,
+            "log_a_size_missing": -0.092,
+            "age_years_missing": -0.278,
+            "log_investors_missing": -0.103
+          },
+          ">=C": {
+            "log_a_size": 0.083,
+            "log_prior_equity": 0.026,
+            "months_to_a": -0.022,
+            "age_years": -0.352,
+            "log_investors": 0.143,
+            "hub_state": 0.302,
+            "prior_rounds": 0.086,
+            "cat_B2C software": -0.165,
+            "cat_Hardware": 0.01,
+            "cat_Other": -0.017,
+            "log_a_size_missing": -0.096,
+            "age_years_missing": -0.389,
+            "log_investors_missing": -0.043
+          }
+        },
+        "calibration_>=B": [
+          {
+            "predicted": 0.287,
+            "actual": 0.174,
+            "n": 121
+          },
+          {
+            "predicted": 0.436,
+            "actual": 0.314,
+            "n": 121
+          },
+          {
+            "predicted": 0.537,
+            "actual": 0.38,
+            "n": 121
+          },
+          {
+            "predicted": 0.623,
+            "actual": 0.504,
+            "n": 121
+          },
+          {
+            "predicted": 0.74,
+            "actual": 0.57,
+            "n": 121
+          }
+        ],
+        "per_category_AUC_>=B": {
+          "B2B software": {
+            "n": 223,
+            "AUC": 0.683
+          },
+          "B2C software": {
+            "n": 232,
+            "AUC": 0.614
+          },
+          "Other": {
+            "n": 133,
+            "AUC": 0.709
+          }
+        }
+      }
+    }
+  },
+  "rolling_3y": [
+    {
+      "test_year": 2008,
+      "n": 619,
+      "base_rate_>=B": 0.326,
+      "AUC_model": 0.68,
+      "AUC_roundsize": 0.541
+    },
+    {
+      "test_year": 2009,
+      "n": 413,
+      "base_rate_>=B": 0.419,
+      "AUC_model": 0.644,
+      "AUC_roundsize": 0.544
+    },
+    {
+      "test_year": 2010,
+      "n": 572,
+      "base_rate_>=B": 0.414,
+      "AUC_model": 0.623,
+      "AUC_roundsize": 0.573
+    }
+  ]
+}
