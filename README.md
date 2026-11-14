@@ -8,7 +8,7 @@ Unicorn Radar gives a VC analyst a second opinion in under a minute. Enter a com
 - its odds of a $1B private round, shown as a range against the historical average,
 - its position on a map of 5,819 real U.S. Series A companies from 2005–2013, including the thousands that never made it.
 
-Built for the Georgetown × Lovable Hackathon. Sister project: [**Founder Radar**](https://github.com/liuyuze1012-code/founder-radar-setup) finds promising founders *before* they raise. Unicorn Radar judges companies *once* they have raised.
+🏆 **Our entry for the GUX × Lovable Hackathon, built to take first place.** Sister project: [**Founder Radar**](https://github.com/liuyuze1012-code/founder-radar-setup) finds promising founders *before* they raise. Unicorn Radar judges companies *once* they have raised.
 
 > Not investment advice. This is a research tool trained on public, historical data.
 
@@ -90,17 +90,32 @@ The pipeline is designed to retrain on proprietary data. With a VC's deal-flow h
 - the fund's own pass/invest decisions, so the model learns *its* taste,
 - multi-cycle data (2008, 2021, the AI wave), so era effects can be separated from intrinsic quality.
 
-## Run it locally
+## Run it yourself: which API keys do you need?
+
+**Short answer: none for the core product.** The Scorecard, the forecast and the Comparables Map run entirely in your browser from the model files in `src/model/`. Clone the repo, install, and run.
+
+Two extra features need your **own** keys, because ours are not in this repo and never will be:
+
+| Feature | Needs | Environment variable |
+|---|---|---|
+| Scorecard, forecast, Comparables Map | Nothing | none |
+| Unicorn Lessons (AI-written stories) | An AI API key | `LOVABLE_API_KEY` (Lovable AI gateway). Or edit `src/lib/aiGateway.server.ts` to use your own Anthropic or OpenAI key. |
+| Saved companies | A Supabase project | `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` (plus `VITE_` copies of both for the browser) and `SUPABASE_SERVICE_ROLE_KEY` (server only, never in the browser) |
+
+**Easiest path:** open the project in [Lovable](https://lovable.dev) and remix it. Lovable Cloud creates the database and AI key for you automatically.
+
+**Manual path:**
 
 ```bash
 git clone https://github.com/liuyuze1012-code/Unicorn_Radar.git
 cd Unicorn_Radar
 bun install        # or: npm install
-bun run dev        # http://localhost:8080 (Vite prints the port)
-bun run test       # the model tests check the TS scorer matches the Python-trained weights
+# Optional: put your own Supabase + AI keys in .env (see the table above)
+bun run dev        # Vite prints the local URL
+bun run test       # checks the TypeScript scorer matches the Python-trained weights
 ```
 
-The Scorecard and Map run fully client-side. The Lessons stories and Saved companies use a Lovable Cloud (Supabase) backend. To run those yourself, point `.env` at your own Supabase project.
+If no keys are set, the core pages still work. Only Lessons stories and Saved companies will show an error.
 
 ## Retrain the model
 
@@ -141,4 +156,4 @@ training/
 - No third-party logos are used.
 
 ## Team
-Built by Gavin (Yuze) Liu at Georgetown University, with Claude and Lovable. Issues and PRs are welcome.
+Built by **Gavin (Yuze) Liu** and **Leon Yan** at Georgetown University for the GUX × Lovable Hackathon, with Claude and Lovable. Issues and PRs are welcome.
