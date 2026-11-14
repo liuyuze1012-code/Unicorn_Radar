@@ -8,7 +8,7 @@ Unicorn Radar gives a VC analyst a second opinion in under a minute. Enter a com
 - its odds of a $1B private round, shown as a range against the historical average,
 - its position on a map of 5,819 real U.S. Series A companies from 2005–2013, including the thousands that never made it.
 
-🏆 **Our entry for the GUX × Lovable Hackathon, built to take first place.** Sister project: [**Founder Radar**](https://github.com/liuyuze1012-code/founder-radar-setup) finds promising founders *before* they raise. Unicorn Radar judges companies *once* they have raised.
+🏆 **Winner (1st Place), GUX × Lovable Hackathon 2026 (Georgetown University).** Sister project: [**Founder Radar**](https://github.com/liuyuze1012-code/founder-radar-setup) finds promising founders *before* they raise. Unicorn Radar judges companies *once* they have raised.
 
 > Not investment advice. This is a research tool trained on public, historical data.
 
@@ -156,4 +156,4 @@ training/
 - No third-party logos are used.
 
 ## Team
-Built by **Gavin (Yuze) Liu** and **Leon Yan** at Georgetown University for the GUX × Lovable Hackathon, with Claude and Lovable. Issues and PRs are welcome.
+Built by **Gavin (Yuze) Liu** and **Leon Yan** at Georgetown University, winners of the GUX × Lovable Hackathon 2026, with Claude and Lovable. Issues and PRs are welcome.
